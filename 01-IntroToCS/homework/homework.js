@@ -1,23 +1,24 @@
 'use strict';
 
 function BinarioADecimal(num) {
-   const auxArr=num.split("");
+   let auxArr = num.split("").reverse();
    let convert = 0;
    for(let i = 0 ; i < auxArr.length; i++){
       let digit = parseInt(auxArr[i]);
-      convert +=  digit * 2^i;
+      convert +=  digit * 2**i;
    }
-   return Number.toString(convert);
-}
+   return convert;
+};
 
 function DecimalABinario(num) {
-   const auxArr=num.split("");
-   let convert = 0;
-   for(let i = 0 ; i < auxArr.length; i++){
-      let digit = parseInt(auxArr[i]);
-      convert +=  digit * 2^i;
-   }
-   return Number.toString(convert);
+   let numero = parseInt(num);
+   let convert = "";
+   while(numero > 1 ){
+      convert += (numero % 2).toString();
+      numero= Math.trunc(numero/2);
+   };
+   convert = numero + convert;
+   return convert;
 }
 
 module.exports = {
