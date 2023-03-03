@@ -13,22 +13,30 @@ nuevoContador()     // 2
 const otroContador = counter()
 otroContador()      // 1
 otroContador()      // 2 */
+
+//function counter() {
+//  let count = 0;
+//  function adder() {
+//    count += 1;
+//    return count;
+//  }
+//  return adder;
+//}
+
 function counter() {
-  let count = 0;
-  function adder() {
-    count += 1;
-    return count;
+  let count = 1;
+  return function () {
+    return count++;
   }
-  return adder;
-}
+};
 
-const nuevoCount1 = counter();
-nuevoCount1();
-nuevoCount1();
-
-const nuevoCount2 = counter();
-nuevoCount2();
-nuevoCount2();
+//const nuevoCount1 = counter();
+//nuevoCount1();
+//nuevoCount1();
+//
+//const nuevoCount2 = counter();
+//nuevoCount2();
+//nuevoCount2();
 
 
 /* Ejercicio 2
@@ -49,32 +57,41 @@ otra vez cálculos que ya se hicieron anteriormente.
   squareCache(5)    // invocará a square(5), almacenará el resultado y lo retornará
   squareCache(5)    // no volverá a invocar a square, simplemente buscará en la caché cuál es el resultado de square(5) y lo retornará (tip: si usaste un objeto, podés usar hasOwnProperty) */
 
-//function cacheFunction(cb) {}
 function cacheFunction(cb) {
-  const cache = [];
-  const operation = {
-      args : [],
-      res : 0
-  };
-  function findOperation(){
-      for(let oper of cache ){
-          if (oper.args.join("") == [...arguments].join("")){
-              return oper.res;
-          }
-      }
-        
-      operation.res = cb(...arguments);
-      operation.args = [...arguments];
-      cache.push(operation);
-      return operation.res;
-  }
-  return findOperation;
+  const cache = {};
+  return function(arg){
+    if(!(cache.hasOwnProperty(arg))){
+      cache[arg] = cb(arg);
+    }
+    return cache[arg];
+    }
 }
+
+//function cacheFunction(cb) {
+//  const cache = [];
+//  const operation = {
+//      args : [],
+//      res : 0
+//  };
+//  function findOperation(){
+//      for(let oper of cache ){
+//          if (oper.args.join("") == [...arguments].join("")){
+//              return oper.res;
+//          }
+//      }
+//        
+//      operation.res = cb(...arguments);
+//      operation.args = [...arguments];
+//      cache.push(operation);
+//      return operation.res;
+//  }
+//  return findOperation;
+//}
 
 //function square(n){
 //  return n * n
 //}
-//
+
 //const squareCache = cacheFunction(square);
 //
 //console.log(squareCache(5));
@@ -120,9 +137,9 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
 }
 
 
-let textoAsteriscos = crearCadena.bind(crearCadena,'*','*');
-let textoGuiones = crearCadena.bind(crearCadena,'-','-');
-let textoUnderscore = crearCadena.bind(crearCadena,'_','_');
+let textoAsteriscos = crearCadena.bind(null,'*','*');
+let textoGuiones = crearCadena.bind(null,'-','-');
+let textoUnderscore = crearCadena.bind(null,'_','_');
 
 //console.log(textoAsteriscos('Hola'));
 //console.log(textoGuiones('Hola'));
