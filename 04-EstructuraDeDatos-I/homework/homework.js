@@ -17,14 +17,14 @@ Como ejercicio adicional y completamente opcional, al terminar de resolver este 
 function nFactorial(n) {
   if(n < 0) return `Factorial no acepta numeros negativos`;
   if(n === 0) return 1;
-  return nFactorial(n-1)*n;
+  return n * nFactorial(n-1);
 }
 
-//console.log(nFactorial(5));
+console.log(nFactorial(5));
 
 
 function nFibonacci(n) {
-  if(n < 0) return `Factorial no acepta numeros negativos`;
+  if(n < 0) return `Fibonacci no acepta numeros negativos`;
   if(n===0) return 0;
   if(n===1) return 1;
   return nFibonacci(n-1) + nFibonacci(n-2);
@@ -40,27 +40,30 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
 Pueden utilizar class o función constructora.
 */
 
-//function Queue() {
-  class Queue {
-    constructor(){
-      this.queue = [];
-    }
-    enqueue (arg) {
-      this.queue.unshift(arg);
-    }
-    dequeue () {
-      return this.queue.pop();
-    }
-    size () {
-      return this.queue.length;
-    }
-   }
-//}
+//?Ejemplo con funciones constructoras y prototipos-------------
+function Queue() {
+  //Propiedes de Queue
+  this.queue = []; 
+}
+
+//?Ejemplo con Class---------------------------
+//*class Queue {
+//*  constructor(){this.queue = []}
+//*}
+
+//?Metodos de Queue
+Queue.prototype.enqueue = function(arg) {this.queue.unshift(arg)};
+Queue.prototype.dequeue = function() {return this.queue.pop()};
+Queue.prototype.size = function() {return this.queue.length};
+//-----------------------------------------------------------------
 
 //const cola = new Queue();
 //
 //console.log(cola.size());
-//cola.enqueue(5);
+//cola.enqueue(10);
+//cola.enqueue(7);
+//cola.enqueue(3);
+//console.log(cola.dequeue());
 //console.log(cola.dequeue());
 //console.log(cola.dequeue());
 //console.log(cola.size());
