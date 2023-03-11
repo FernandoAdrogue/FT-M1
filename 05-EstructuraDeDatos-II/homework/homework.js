@@ -11,7 +11,7 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
 function LinkedList() {
-  this._length = 0;
+  //this._length = 0;
   this.head = null;
 }
 
@@ -42,15 +42,17 @@ LinkedList.prototype.add = function(value){
   let current = this.head;
   if(!current){  //?Agrega un nodo si esta la LinkedList vacia
       this.head = node;
-      this._length++;
-      return node
+      //this._length++;
+      //return node //?Retorna el nodo
+      return value;
   }
   while(current.next){ //?recorre la LinkedList hasta el ultimo nodo
       current = current.next;
   }
   current.next = node;
-  this._length++;
-  return node;
+  //this._length++;
+  //return node;//?Retorna el nodo
+  return value;
 }
 
 LinkedList.prototype.remove = function(){
@@ -61,7 +63,7 @@ LinkedList.prototype.remove = function(){
   }
   if(!current.next){//?si tiene un solo elemento retorna el head
     this.head = null;
-    this._length = 0;
+    //this._length = 0;
     return current.value;
   }
   while(current.next.next){//?recorre la lista hasta el anteultimo elemento
@@ -69,7 +71,7 @@ LinkedList.prototype.remove = function(){
   }
   removed = current.next;
   current.next = null;
-  this._length--;
+  //this._length--;
   return removed.value ;
 }
 
@@ -132,32 +134,46 @@ function HashTable() {
 
 HashTable.prototype.hash = function (input){
   return (input.split("").reduce(function(hashNum, char){
-    return hashNum + char.charCodeAt(0);
+    return hashNum + char.charCodeAt();
   },0)) % this.numBuckets;
 }
 
+//HashTable.prototype.hash = function (input){ //*version con for of
+//  let suma = 0;
+//  for(let char of input){
+//    suma += char.charCodeAt();
+//  }
+//  return suma % this.numBuckets;
+//}
+
 HashTable.prototype.set = function (key, value){
-  if(!this.hasKey(key) && !this.buckets[this.hash(key)]){
-    const obj = {};
-    obj[key]= value;
-    this.buckets[this.hash(key)] = obj;
+  let index = this.hash(key);
+  //if(!this.hasKey(key) && !this.buckets[index]){ //!no necesita usar haskey
+  if(!this.buckets[index]){
+    this.buckets[index] = {[key] :value};
     return
   }
-  this.buckets[this.hash(key)][key] = value;
+  this.buckets[index][key] = value;
 }
 
 HashTable.prototype.get = function (key){
-  if(this.buckets[this.hash(key)]){
-    return this.buckets[this.hash(key)][key];
+  let index = this.hash(key)
+  if(this.buckets[index]){
+    return this.buckets[index][key];
   }
   return null;
 }
 
 HashTable.prototype.hasKey = function (key){
-  if(this.buckets[this.hash(key)] && this.buckets[this.hash(key)].hasOwnProperty(key)){
-    return true;
-  }
-  return false;
+  let index = this.hash(key);
+  //*con hasOwnProperty
+  //if(this.buckets[this.hash(key)] && this.buckets[this.hash(key)].hasOwnProperty(key)){
+  //  return true;
+  //}
+  //return false;
+  
+  //return !!this.buckets[index][key];//*doble negacion de la expresion para obtener su valor logico
+  return !!this.get(key);//*doble negacion del resultado del get
 }
 
 // No modifiquen nada debajo de esta linea
