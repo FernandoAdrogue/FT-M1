@@ -32,16 +32,26 @@ BinarySearchTree.prototype.size = function () {
    return count;
 }
 
-BinarySearchTree.prototype.contains = function (value, current = this) {
-   if(!current)return false;
-   
-   if(current.value === value) return true;
- 
-   if(value < current.value)return this.contains(value, current.left);
-   else return this.contains(value, current.right);
-   
-}
+BinarySearchTree.prototype.contains = function (value) {
+     if(value < this.value){
+         if(this.left){
+            return this.left.contains(value);
+         }
+      };
+     if(value > this.value){
+         if(this.right){
+            return this.right.contains(value);
+         }
+      };
+     if(this.value===value){
+         return true;
+      }
+     else{
+         return false;
+   };
 
+ }  
+ 
 BinarySearchTree.prototype.depthFirstForEach= function(cb , arg = 'in-order' ) {
    if(arg === 'in-order') {   
        if(this.left)this.left.depthFirstForEach(cb, arg = 'in-order');
