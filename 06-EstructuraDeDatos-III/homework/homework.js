@@ -33,21 +33,26 @@ BinarySearchTree.prototype.size = function () {
 }
 
 BinarySearchTree.prototype.contains = function (value) {
-     if(value < this.value){//*Recorre por Izq si es menor
-         if(this.left){
-            return this.left.contains(value);
-         }
-      };
-     if(value > this.value){//*Recorre por Der si es mayor
-         if(this.right){
-            return this.right.contains(value);
-         }
-      };
-     if(this.value===value){//*Retorna true si encuentra el valor
-         return true;
-      };
-      return false; //*Retorna false si el valor no existe
- }  
+      if(value < this.value && this.left)return this.left.contains(value);//*Recorre por Izq si es menor
+      if(value > this.value && this.right)return this.right.contains(value);//*Recorre por Der si es mayor
+      if(this.value===value) return true;//*Retorna true si encuentra el valor
+      return false;//*Retorna false si el valor no existe
+
+     //if(value < this.value){//*Recorre por Izq si es menor
+     //    if(this.left){
+     //       return this.left.contains(value);
+     //    }
+     // };
+     //if(value > this.value){//*Recorre por Der si es mayor
+     //    if(this.right){
+     //       return this.right.contains(value);
+     //    }
+     // };
+     //if(this.value===value){//*Retorna true si encuentra el valor
+     //    return true;
+     // };
+     // return false; //*Retorna false si el valor no existe
+ }
  
 BinarySearchTree.prototype.depthFirstForEach= function(cb , arg = 'default' ) {
    switch (arg) {
